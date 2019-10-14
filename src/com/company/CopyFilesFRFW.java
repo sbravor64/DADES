@@ -7,51 +7,29 @@ public class CopyFilesFRFW {
 
     public static void main(String[] args) throws IOException {
 
-//        InputStream inputStream = null;
-//        OutputStream outputStream = null;
-//
-//        String source = "/home/dam2a/Escriptori/alphabeta.txt";
-//        String dest = "/home/dam2a/Escriptori/fichero_nuevo.txt";
+        File fichero_existe = new File("/home/dam2a/Escriptori/alphabeta.txt");
 
+        if (fichero_existe.exists()) {
+            FileReader fileReader = new FileReader("/home/dam2a/Escriptori/alphabeta.txt");
+            BufferedReader br= new BufferedReader(fileReader);
 
-        BufferedReader br = new BufferedReader(new FileReader("/home/dam2a/Escriptori/alphabeta.txt"));
+            File nuevo_fichero = new File("/home/dam2a/Escriptori/fichero_nuevo.txt");
+            FileWriter fileWriter = new FileWriter(nuevo_fichero);
 
-        File file_new = new File("/home/dam2a/Escriptori/alphabeta.txt")
-        FileOutputStream bw = new FileOutputStream(file_new);
+            boolean linea = false;
+            while (!linea) {
+                String datos = br.readLine();
 
-
-
-        String datos;
-
-        boolean eof = false;
-
-        while (!eof){
-            datos = br.readLine();
-            bw.write(datos);
-            bw.newLine();
-            bw.close();
-            if(datos==null){
-                eof=true;
+                if (datos==null){
+                    linea=true;
+                } else {
+                    fileWriter.write(datos+"\n");
+                };
             }
+            fileWriter.close();
+            br.close();
+            fileReader.close();
         }
-        br.close();
-
-
-//        char c;
-//        try{
-//            do {
-//                c= (char) br.read();
-//                bw.write(c);
-//            } while (c !='z');
-//        } finally {
-//            if(br!=null){
-//                br.close();
-//            }
-//        }
-//        br.close();
-//        fw.close();
-
     }
-
 }
 
