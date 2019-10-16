@@ -10,30 +10,44 @@ public class CopyDirFRFW {
 
     public static void main(String[] args) throws IOException {
 
-        File fichero_source = new File("/home/dam2a/Escriptori/");
-        File fichero_destination = new File("/home/dam2a/prueba");
+//        File directory_source = new File("/home/dam2a/Escriptori/");
+//        File directory_destination = new File("/home/dam2a/prueba");
 
+        File directory_source = new File("C:\\Users\\Usuario\\Documents\\Copy\\prueba");
+        File directory_destination = new File("C:\\Users\\Usuario\\Documents\\Copy\\enviados");
 
-        if(fichero_source.isDirectory()){
-            if(!fichero_destination.exists()){
-                fichero_destination.mkdir();
-                System.out.println("Hemos creado el fichero destino ya que no existia: " + fichero_destination);
+        String files[] = directory_source.list();
+
+        if(directory_source.isDirectory()){
+            if(!directory_destination.exists()){
+                directory_destination.mkdir();
+                System.out.println("Hemos creado el fichero destino ya que no existia: " + directory_destination);
             }
 
-            FileReader fileReader = new FileReader(fichero_source);
-            BufferedReader br= new BufferedReader(fileReader);
+            for (String file : files) {
+                FileReader fileReader = new FileReader(directory_source+ "\\" + file);
+                BufferedReader br= new BufferedReader(fileReader);
 
-            FileWriter fileWriter = new FileWriter(fichero_destination);
+                FileWriter fileWriter = new FileWriter(directory_destination + "\\" + file);
 
-            for(){
+                boolean linea = false;
+                while (!linea) {
+                    String datos = br.readLine();
 
+                    if (datos==null){
+                        linea=true;
+                    } else {
+                        fileWriter.write(datos+"\n");
+                    };
+                }
+                fileWriter.close();
+                br.close();
+                fileReader.close();
             }
+
         }
 
-
-
-
-//        copyFolder(fichero_source,fichero_destination);
+//        copyFolder(directory_source,directory_destination);
     }
 
 //    private static void copyFolder(File fichero_source, File fichero_destination) throws IOException {
