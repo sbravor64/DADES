@@ -44,9 +44,7 @@ public class CopyDirFRFW {
                 br.close();
                 fileReader.close();
             }
-
         }
-
 //        copyFolder(directory_source,directory_destination);
     }
 
