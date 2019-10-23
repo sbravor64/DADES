@@ -12,8 +12,8 @@ public class CopyArrayToFile {
 
         String[] palabras={"hola","buenas","tardes"};
 
-//        File fichero_destination = new File("/home/dam2a/Escriptori");
-        File fichero_destination = new File("C:\\Users\\Usuario\\Documents\\Copy\\prueba\\arraylist.txt");
+        File fichero_destination = new File("/home/dam2a/Escriptori");
+//        File fichero_destination = new File("C:\\Users\\Usuario\\Documents\\Copy\\prueba\\arraylist.txt");
         FileWriter fw = new FileWriter(fichero_destination);
 
         for(String dato : palabras){
