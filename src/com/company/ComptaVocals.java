@@ -22,10 +22,13 @@ public class ComptaVocals {
             if(vocal.equals("u")) bw.write(vocal);
             else bw.write(vocal + split);
         }
+        bw.write("\n");
+        String line;
+        line=br.readLine();
 
         boolean eof = false;
         while (!eof){
-            String line=br.readLine();
+
             char[] arrayChar = line.toCharArray();
 
             for (int i = 0; i < arrayChar.length ; i++) {
@@ -42,19 +45,24 @@ public class ComptaVocals {
                 }
             }
 
-            bw.newLine();
-
-            for(int c : count){
-                bw.write(c+split);
+            for (int i = 0; i <count.length ; i++) {
+                if(i==4){
+                    bw.write(String.valueOf(count[i]));
+                } else {
+                    bw.write(String.valueOf(count[i])+split);
+                }
             }
-            bw.close();
 
-            count = new int[]{0, 0, 0, 0};
+            bw.write("\n");
 
+            count = new int[]{0, 0, 0, 0, 0};
+
+            line=br.readLine();
             if(line==null){
                 eof=true;
             }
         }
+        bw.close();
         br.close();
     }
 }
