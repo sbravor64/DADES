@@ -25,8 +25,23 @@ public class RecordsTextToCSV  {
         String[] edades = new String[10];
 
         String linea=br.readLine();
+        int i=0, y=0, k=0;
+
+        String split;
         while(linea!=null){
-            String datos = linea;
+            split="----";
+            if (!linea.equals(split)) {
+                nombres[i]=linea;
+                linea=br.readLine();
+                i++;
+                apellidos [y]=linea;
+                linea=br.readLine();
+                y++;
+                edades[k]=linea;
+                linea=br.readLine();
+                k++;
+            }
+            linea=br.readLine();
         }
     }
 
