@@ -65,6 +65,10 @@ public class RecordsTextToCSV  {
     public static void mostraPerPantalla(BufferedReader br) throws IOException {
         String linea = br.readLine();
 
+        String separador=",";
+
+        String[] datos = linea.split(separador);
+
         while(linea!=null){
             System.out.println(linea);
             linea=br.readLine();
