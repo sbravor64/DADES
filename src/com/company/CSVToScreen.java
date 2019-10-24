@@ -12,10 +12,13 @@ public class CSVToScreen {
 
         String linea=br.readLine();
 
+        int j=1;
         while (linea!=null){
             String[] datos = linea.split(",");
 
             int i=0;
+
+            System.out.println("Persona " + j);
             System.out.println("firtname: " + datos[i]); i++;
             System.out.println("lastname: " + datos[i]); i++;
             System.out.println("username " + datos[i]); i++;
@@ -24,6 +27,7 @@ public class CSVToScreen {
             System.out.println("*****");
 
             linea=br.readLine();
+            j++;
         }
     }
 
