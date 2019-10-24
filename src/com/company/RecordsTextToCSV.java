@@ -10,6 +10,7 @@ public class RecordsTextToCSV  {
     private static String[] apellidos = new String[10];
     private static String[] edades = new String[10];
     private static String split=",";
+    private static int contadorDatos=0;
 
     public static void main(String[] args) throws IOException {
 
@@ -42,6 +43,7 @@ public class RecordsTextToCSV  {
             linea=br.readLine();
             k++;
             linea=br.readLine();
+            contadorDatos++;
         }
     }
 
@@ -50,7 +52,7 @@ public class RecordsTextToCSV  {
         bw.write("nombre" + "," + "apellidos" + "," + "edad");
         bw.newLine();
 
-        for (int i = 0; i <2 ; i++) {
+        for (int i = 0; i < contadorDatos ; i++) {
             bw.write(nombres[i] + split);
             bw.write(apellidos[i] + split);
             bw.write(edades[i]);
