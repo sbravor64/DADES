@@ -58,6 +58,17 @@ class User implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
 
 public class CSVToObjectFile {
@@ -82,11 +93,18 @@ public class CSVToObjectFile {
             }
 
             User user = new User(listUser.get(0),listUser.get(1),listUser.get(2),listUser.get(3), listUser.get(4));
-            ArrayList<User> listusers = new ArrayList<User>();
+            ArrayList<User> listusers = new ArrayList<>();
+            listusers.add(user);
+
             writeUsers(listusers);
-            readDades();
+            readDades(listusers);
 
             linea=br.readLine();
+
+            if(linea!=null){
+                datos=linea.split(";");
+            }
+
             listUser.clear();
         }
     }
@@ -104,9 +122,7 @@ public class CSVToObjectFile {
 
         ArrayList<User> users = (ArrayList<User>) objectInputStream.readObject();
 
-        for (User u : users){
-            System.out.println(u.getUsername());
-        }
+        System.out.println(users);
 
         fileInputStream.close();
         objectInputStream.close();
