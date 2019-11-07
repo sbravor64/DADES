@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Person implements Serializable{
-    private String name = null;
+    private String name;
 
     public String getName() {
         return name;
@@ -34,7 +34,7 @@ public class ObjectStreamExample {
         listaPersones.add(person3);
 
         introDades(listaPersones);
-        readDades(listaPersones);
+        readDades();
     }
 
     public static void introDades(ArrayList<Person> listaPersones) throws IOException {
@@ -46,7 +46,7 @@ public class ObjectStreamExample {
         objectOutputStream.close();
     }
 
-    public static void readDades(ArrayList<Person> listaPersones) throws IOException, ClassNotFoundException {
+    public static void readDades() throws IOException, ClassNotFoundException {
         FileInputStream fileInputStream = new FileInputStream("/home/dam2a/Documents/accesadades/person.txt");
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
