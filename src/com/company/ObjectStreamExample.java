@@ -4,44 +4,60 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObjectStreamExample {
+class Person implements Serializable{
+    private String name = null;
 
-    public static class Person implements Serializable{
-        String name = null;
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+public class ObjectStreamExample {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Person person = new Person();
-        person.name="Andres Bravo";
+        person.setName("Andres Bravo");
 
         Person person2 = new Person();
-        person.name="Jesus Bravo";
+        person2.setName("Jesus Bravo");
 
         Person person3 = new Person();
-        person.name="Kevin Bravo";
+        person3.setName("Kevin Bravo");
 
-        introDades(person);
-        introDades(person2);
-        introDades(person3);
+        ArrayList<Person> listaPersones = new ArrayList<Person>();
+        listaPersones.add(person);
+        listaPersones.add(person2);
+        listaPersones.add(person3);
 
-        readDades();
+        introDades(listaPersones);
+        readDades(listaPersones);
     }
 
-    public static void introDades(Person person) throws IOException {
+    public static void introDades(ArrayList<Person> listaPersones) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream("/home/dam2a/Documents/accesadades/person.txt");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-        objectOutputStream.writeObject(person);
+        objectOutputStream.writeObject(listaPersones);
+
+        fileOutputStream.close();
+        objectOutputStream.close();
     }
 
-    public static void readDades() throws IOException, ClassNotFoundException {
+    public static void readDades(ArrayList<Person> listaPersones) throws IOException, ClassNotFoundException {
         FileInputStream fileInputStream = new FileInputStream("/home/dam2a/Documents/accesadades/person.txt");
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
-        List<Person> datos=(List<Person>)objectInputStream.readObject();
+        ArrayList<Person> ps = (ArrayList<Person>) objectInputStream.readObject();
 
-        for (Person person : datos){
-            System.out.println(person);
+        for (Person p : ps){
+            System.out.println(p.getName());
         }
+
+        fileInputStream.close();
+        objectInputStream.close();
     }
 }
 
