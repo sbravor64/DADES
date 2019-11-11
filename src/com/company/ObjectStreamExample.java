@@ -38,26 +38,37 @@ public class ObjectStreamExample {
     }
 
     public static void introDades(ArrayList<Person> listaPersones) throws IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream("/home/dam2a/Documents/accesadades/person.txt");
+        FileOutputStream fileOutputStream = new FileOutputStream("/home/dam2a/Documents/accesadades/person.bin", false);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-        objectOutputStream.writeObject(listaPersones);
+
+
+        objectOutputStream.writeObject(listaPersones.get(0));
+        objectOutputStream.writeObject(listaPersones.get(1));
+        objectOutputStream.writeObject(listaPersones.get(2));
 
         fileOutputStream.close();
         objectOutputStream.close();
     }
 
     public static void readDades() throws IOException, ClassNotFoundException {
-        FileInputStream fileInputStream = new FileInputStream("/home/dam2a/Documents/accesadades/person.txt");
+        FileInputStream fileInputStream = new FileInputStream("/home/dam2a/Documents/accesadades/person.bin");
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
-        ArrayList<Person> ps = (ArrayList<Person>) objectInputStream.readObject();
+        ArrayList<Person> ps = new ArrayList<Person>();
+       try {
+           while (true){
+               ps.add((Person) objectInputStream.readObject());
+           }
+       }catch (EOFException e){
+           fileInputStream.close();
+           objectInputStream.close();
+       }
 
         for (Person p : ps){
             System.out.println(p.getName());
         }
 
-        fileInputStream.close();
-        objectInputStream.close();
+
     }
 }
 

@@ -61,13 +61,7 @@ class User implements Serializable{
 
     @Override
     public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        return username + " " + firstname + " " + lastname  + " " + email + " " +password;
     }
 }
 
@@ -78,54 +72,57 @@ public class CSVToObjectFile {
         File file = new File("/home/dam2a/Documents/accesadades/users.csv");
         BufferedReader br = new BufferedReader(new FileReader(file));
 
-        ArrayList<String> listUser = new ArrayList<>();
-
-        loadUsers(br, listUser);
+        loadUsers(br);
+        readDades();
     }
 
-    public static void loadUsers(BufferedReader br, ArrayList<String> listUser) throws IOException, ClassNotFoundException {
+    public static void loadUsers(BufferedReader br) throws IOException, ClassNotFoundException {
+        ArrayList<User> listusers = new ArrayList<>();
+
         String linea=br.readLine();
-        String[] datos = linea.split(";");
 
         while (linea!=null){
-            for (String dato : datos) {
-                listUser.add(dato);
-            }
+            String[] datos = linea.split(";");
 
-            User user = new User(listUser.get(0),listUser.get(1),listUser.get(2),listUser.get(3), listUser.get(4));
-            ArrayList<User> listusers = new ArrayList<>();
+            User user = new User(datos[0],datos[1],datos[2],datos[3],datos[4]);
             listusers.add(user);
 
-            writeUsers(listusers);
-            readDades(listusers);
-
             linea=br.readLine();
-
-            if(linea!=null){
-                datos=linea.split(";");
-            }
-
-            listUser.clear();
         }
+        br.close();
+
+        writeUsers(listusers);
     }
 
     public static void writeUsers(ArrayList<User> listUser) throws IOException, ClassNotFoundException {
         FileOutputStream fileOutputStream = new FileOutputStream("/home/dam2a/Documents/accesadades/users.bin");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
-        objectOutputStream.writeObject(listUser);
+        for (User u : listUser) {
+            objectOutputStream.writeObject(u);
+        }
+        objectOutputStream.close();
     }
 
-    public static void readDades(ArrayList<User> list) throws IOException, ClassNotFoundException {
+    public static void readDades() throws IOException, ClassNotFoundException {
         FileInputStream fileInputStream = new FileInputStream("/home/dam2a/Documents/accesadades/users.bin");
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
-        ArrayList<User> users = (ArrayList<User>) objectInputStream.readObject();
+        User user = (User) objectInputStream.readObject();
 
-        System.out.println(users);
+//        for (User u : users){
+//            System.out.println(u.getFirstname());
+//        }
 
-        fileInputStream.close();
-        objectInputStream.close();
+        try {
+            while (true){
+                System.out.println(user);
+                user= (User) objectInputStream.readObject();
+            }
+        }catch (EOFException e){
+            fileInputStream.close();
+            objectInputStream.close();
+        }
     }
 }
 
