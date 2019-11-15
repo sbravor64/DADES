@@ -74,6 +74,7 @@ public class CSVToObjectFile {
 
         loadUsers(br);
         readDades();
+
     }
 
     public static void loadUsers(BufferedReader br) throws IOException, ClassNotFoundException {
@@ -82,7 +83,7 @@ public class CSVToObjectFile {
         String linea=br.readLine();
 
         while (linea!=null){
-            String[] datos = linea.split(";");
+            String[] datos = linea.split(",");
 
             User user = new User(datos[0],datos[1],datos[2],datos[3],datos[4]);
             listusers.add(user);
@@ -92,6 +93,7 @@ public class CSVToObjectFile {
         br.close();
 
         writeUsers(listusers);
+
     }
 
     public static void writeUsers(ArrayList<User> listUser) throws IOException, ClassNotFoundException {
